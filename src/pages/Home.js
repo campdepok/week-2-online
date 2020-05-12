@@ -5,9 +5,12 @@
 // const React = require('react')
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
 
 import Navbar from "../components/Navbar";
-import { getUser, loginUser, allEngineer } from "../utils/http";
+import { loginUser, allEngineer } from "../utils/http";
+import Counter from "../components/Counter";
+import { getUserActionCreator } from "../redux/actions/consumeAPI";
 
 import "../styles/Home.css";
 
@@ -51,9 +54,10 @@ class Home extends Component {
       .catch((error) => console.log(error));
   };
   async componentDidMount() {
-    await getUser()
-      .then((response) => this.setState({ responseAPI: response.data.results }))
-      .catch((error) => console.log("ERROR", error));
+    // await getUser()
+    //   .then((response) => this.setState({ responseAPI: response.data.results }))
+    //   .catch((error) => console.log("ERROR", error));
+    await this.props.getUserAction();
   }
   componentDidUpdate(_, prevState) {
     if (prevState !== this.state) {
@@ -81,6 +85,8 @@ class Home extends Component {
   // componentWillUnmount(){}
   render() {
     const { name, date, isLogin, value } = this.state;
+    // const { isLoading, isRejected, isFulfilled, responseAPI } = this.props;
+    // console.log(isLoading, isRejected, isFulfilled, responseAPI);
     return (
       <>
         <Navbar />
@@ -88,6 +94,7 @@ class Home extends Component {
         <h2>{date}</h2>
         <button onClick={this.changeState}>Ubah State</button>
         <br />
+        <Counter />
         <form>
           <label>Dropdown</label>
           <br />
@@ -148,7 +155,29 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = ({
+  isLoading,
+  isRejected,
+  isFulfilled,
+  responseAPI,
+}) => {
+  return {
+    isLoading,
+    isRejected,
+    isFulfilled,
+    responseAPI,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserAction: () => {
+      dispatch(getUserActionCreator());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 // module.exports = App
 
 //traditional function

@@ -10,3 +10,18 @@
 .navbar {
   background-color: blueviolet;
 }
+
+.profile-counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.counter-button {
+  margin: 3px;
+}
+
+.number-counter {
+  margin: 3px;
+}
