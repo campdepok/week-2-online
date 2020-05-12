@@ -21,6 +21,7 @@ class Home extends Component {
     password: "",
     token: "",
     isLogin: false,
+    value: "asc",
   };
   changeState = () => {
     this.setState({
@@ -54,14 +55,32 @@ class Home extends Component {
       .then((response) => this.setState({ responseAPI: response.data.results }))
       .catch((error) => console.log("ERROR", error));
   }
-  //   componentDidUpdate() {}
+  componentDidUpdate(_, prevState) {
+    if (prevState !== this.state) {
+      const { name, date, username, value } = this.state;
+      console.log("different state");
+      // let qs = "?";
+      // if (name) {
+      //   qs += `name=${name}`;
+      // }
+      // if (username) {
+      //   qs += `&user=${username}`;
+      // }
+      this.props.history.push(
+        `?name=${name}&date=${date}&user=${username}&sort=${value}`
+        // qs
+      );
+    } else {
+      console.log("same state");
+    }
+  }
   //   shouldComponentUpdate() {
   //     return true;
   //     // return false;
   //   }
   // componentWillUnmount(){}
   render() {
-    const { name, date, isLogin } = this.state;
+    const { name, date, isLogin, value } = this.state;
     return (
       <>
         <Navbar />
@@ -70,6 +89,16 @@ class Home extends Component {
         <button onClick={this.changeState}>Ubah State</button>
         <br />
         <form>
+          <label>Dropdown</label>
+          <br />
+          <select
+            value={value}
+            onChange={(e) => this.setState({ value: e.target.value })}
+          >
+            <option value="asc">asc</option>
+            <option value="dsc">dsc</option>
+          </select>
+          <br />
           <label>Username</label>
           <br />
           <input
