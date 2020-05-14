@@ -1,6 +1,4 @@
 import {
-  addCounter,
-  subCounter,
   getUserAction,
   pending,
   rejected,
@@ -8,25 +6,14 @@ import {
 } from "../actions/actionTypes";
 
 const initialValue = {
-  counter: 0,
   responseAPI: [],
   isLoading: false,
   isRejected: false,
   isFulfilled: false,
 };
 
-const reducer = (prevState = initialValue, action) => {
+const consumeAPIReducer = (prevState = initialValue, action) => {
   switch (action.type) {
-    case addCounter:
-      return {
-        ...prevState,
-        counter: prevState.counter + 1,
-      };
-    case subCounter:
-      return {
-        ...prevState,
-        counter: prevState.counter - 1,
-      };
     case getUserAction + pending:
       return {
         ...prevState,
@@ -55,4 +42,4 @@ const reducer = (prevState = initialValue, action) => {
   }
 };
 
-export default reducer;
+export default consumeAPIReducer;

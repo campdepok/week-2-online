@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import { countUp, countDown } from "../redux/actions/counter";
 
 const Counter = ({ counter, addCounter, subCounter }) => {
+  console.log(counter);
   return (
     <div className="profile-counter">
       <button className="counter-button" onClick={subCounter}>
         -
       </button>
-      <h1 className="number-counter">{counter}</h1>
+      <h1 className="number-counter">{counter.counter}</h1>
       <button className="counter-button" onClick={addCounter}>
         +
       </button>
