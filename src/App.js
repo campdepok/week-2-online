@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Hooks from "./pages/Hooks";
+
 import store from "./redux/store";
 
 const App = () => {
@@ -13,6 +15,7 @@ const App = () => {
         <Route path="/" exact component={Home} /> {/* localhost:3000/ */}
         <Route path="/profile" component={Profile} />{" "}
         {/* localhost:3000/profile */}
+        <Route path="/hooks" component={Hooks} />
       </Router>
     </Provider>
   );
